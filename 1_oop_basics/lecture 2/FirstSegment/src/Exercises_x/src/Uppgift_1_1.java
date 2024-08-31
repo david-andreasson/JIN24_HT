@@ -17,6 +17,6 @@ public class Uppgift_1_1 {
         System.out.println("Pages: " + Pages);
         System.out.println("Price: " + Price);
         System.out.println("Hardback: " + Hardback);
-        
+
     }
 }
