@@ -36,6 +36,9 @@ else if (choice == 3) {
 
     System.out.println(tid + " sekunder är " + timmar + " timmar, " + minuter + " minuter och " + sekunder + " sekunder.");
 }
+else {
+    System.out.println("Ogiltigt val");
+}
 
         }
     }
