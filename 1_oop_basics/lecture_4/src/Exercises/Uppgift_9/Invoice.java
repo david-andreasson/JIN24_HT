@@ -13,8 +13,12 @@ public class Invoice {
         totalInvoiceAmount -= discount;
     }
     public void showInvoiceDetails() {
+        System.out.println("");
+        System.out.println("############################################");
         System.out.println("Invoice Number: " + invoiceNumber);
         System.out.println("Customer Name: " + customerName);
         System.out.println("Total Invoice Amount: " + totalInvoiceAmount);
+        System.out.println("############################################");
+        System.out.println("");
     }
 }
