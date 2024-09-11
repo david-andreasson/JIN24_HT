@@ -1,4 +1,4 @@
-package Exercises.Uppgift_10;
+package Exercises.Uppgift_11;
 
 public class Main {
     public static void main(String[] args) {
