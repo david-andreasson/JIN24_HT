@@ -1,2 +1,12 @@
 # JIN24_HT
- Project and files for autumn 2024
+
+## Description
+This repository contains code, projects, and assignments for the autumn 2024 semester. It includes schoolwork related to programming, coursework, and various submissions for ongoing courses.
+
+## Structure
+- `1_oop_basics/`: Object-Oriented Programming course materials.
+- `2_databases/`: Database management and design course materials.
+- Other folders include additional projects and exercises.
+
+## Usage
+All files are related to coursework.
