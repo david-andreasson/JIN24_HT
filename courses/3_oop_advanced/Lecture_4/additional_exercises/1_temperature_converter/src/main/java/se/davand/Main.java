@@ -4,42 +4,26 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
+        TemperatureInputHandler inputHandler = new TemperatureInputHandler();
         TemperatureConverter temperatureConverter = new TemperatureConverter();
 
         boolean continueConversion = true;
-
         while (continueConversion) {
-            try {
-                System.out.println("What temperature do you want to convert?");
-                System.out.print("Enter a number: ");
-                double temperature = scanner.nextDouble();
+            double temperature = inputHandler.getInputTemperature();
+            String unit = inputHandler.getInputUnit();
 
-                System.out.print("Enter the unit of the temperature (C/F): ");
-                String unit = scanner.next();
-
-                if (unit.equalsIgnoreCase("C")) {
-                    System.out.println("The temperature in Fahrenheit is: " + temperatureConverter.convertCelsiusToFahrenheit(temperature));
-                } else if (unit.equalsIgnoreCase("F")) {
-                    System.out.println("The temperature in Celsius is: " + temperatureConverter.convertFahrenheitToCelsius(temperature));
-                } else {
-                    System.out.println("Invalid unit. Please enter C for Celsius or F for Fahrenheit.");
-                }
-
-                // Ask if the user wants to continue
-                System.out.print("Do you want to convert another temperature? (Y/N): ");
-                String userChoice = scanner.next();
-                if (userChoice.equalsIgnoreCase("N")) {
-                    continueConversion = false;
-                    System.out.println("Thank you for using the temperature converter!");
-                }
-
-            } catch (Exception e) {
-                System.out.println("Invalid input. Please enter a valid number.");
-                scanner.nextLine(); // Clear the buffer
+            if (unit.equalsIgnoreCase("C")) {
+                double fahrenheit = temperatureConverter.convertCelsiusToFahrenheit(temperature);
+                System.out.println("The temperature in Fahrenheit is: " + fahrenheit);
+            } else if (unit.equalsIgnoreCase("F")) {
+                double celsius = temperatureConverter.convertFahrenheitToCelsius(temperature);
+                System.out.println("The temperature in Celsius is: " + celsius);
+            } else {
+                System.out.println("Invalid unit. Please enter C or F.");
+            }
+            continueConversion = inputHandler.askIfContinue();
+        }
+                inputHandler.closeScanner();
+                System.out.println("Goodbye!");
             }
         }
-
-        scanner.close(); // Close the scanner when done
-    }
-}
