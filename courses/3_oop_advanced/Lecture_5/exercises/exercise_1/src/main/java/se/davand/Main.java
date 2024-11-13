@@ -1,42 +1,37 @@
 package se.davand;
 
-import se.davand.database.BasicConnectionPool;
+import se.davand.model.Customer;
+import se.davand.repository.CustomerRepository;
 import se.davand.database.ConnectionManager;
-
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 
 public class Main {
     public static void main(String[] args) {
-        // Test basic database connection
-        try (Connection connection = BasicConnectionPool.getConnection()) {
-            if (connection != null && !connection.isClosed()) {
-                System.out.println("Connection successful!");
-            }
-        } catch (SQLException e) {
-            System.err.println("Database connection failed: " + e.getMessage());
-        }
+        ConnectionManager connectionManager = new ConnectionManager();
+        CustomerRepository customerRepository = new CustomerRepository(connectionManager);
 
-        // Additional code to test ConnectionManager
-        // Example of a SELECT query
-        String selectQuery = "SELECT * FROM users WHERE id = ?";
-        try (ResultSet rs = ConnectionManager.executeQuery(selectQuery, 1)) {
-            if (rs != null && rs.next()) {
-                System.out.println("User ID: " + rs.getInt("id"));
-                System.out.println("Username: " + rs.getString("username"));
-                System.out.println("Email: " + rs.getString("email"));
-            }
-        } catch (SQLException e) {
-            System.err.println("Failed to read from ResultSet: " + e.getMessage());
-        }
+        // Create and save a new customer
+        Customer newCustomer = new Customer(null, "John Doe", "johndoe@example.com");
+        boolean saved = customerRepository.save(newCustomer);
+        System.out.println("Customer saved: " + saved + ", ID: " + newCustomer.getId());
 
-        // Example of an UPDATE query
-        String updateQuery = "UPDATE users SET email = ? WHERE id = ?";
-        int rowsAffected = ConnectionManager.executeUpdate(updateQuery, "newemail@example.com", 1);
-        System.out.println("Number of rows updated: " + rowsAffected);
+        // Retrieve all customers
+        customerRepository.findAll().forEach(System.out::println);
 
-        // Close connection pool when the program finishes
-        BasicConnectionPool.shutdown();
+        // Retrieve a customer by ID
+        customerRepository.findById(newCustomer.getId()).ifPresent(System.out::println);
+
+        // Update the customer's name
+        newCustomer.setName("John Updated");
+        customerRepository.save(newCustomer);
+
+        // Verify the update
+        customerRepository.findById(newCustomer.getId()).ifPresent(System.out::println);
+
+        // Delete the customer
+        boolean deleted = customerRepository.delete(newCustomer.getId());
+        System.out.println("Customer deleted: " + deleted);
+
+        // Verify deletion by retrieving all customers
+        customerRepository.findAll().forEach(System.out::println);
     }
 }

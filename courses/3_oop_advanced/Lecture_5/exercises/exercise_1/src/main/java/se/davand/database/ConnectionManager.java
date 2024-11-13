@@ -1,43 +1,28 @@
 package se.davand.database;
 
-import se.davand.database.BasicConnectionPool;
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
 
 import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class ConnectionManager {
+    private static final HikariDataSource dataSource;
 
-    public static ResultSet executeQuery(String query, Object... params) {
-        try {
-            Connection connection = BasicConnectionPool.getConnection();
-            PreparedStatement statement = connection.prepareStatement(query);
-            setParameters(statement, params);
+    static {
+        HikariConfig config = new HikariConfig();
+        config.setJdbcUrl("jdbc:mysql://localhost:3306/mydatabase");
+        config.setUsername("David");
+        config.setPassword("Grodan77##");
 
-            return statement.executeQuery();
-        } catch (SQLException e) {
-            System.err.println("Query execution failed: " + e.getMessage());
-            return null;
-        }
+        config.setMaximumPoolSize(10);
+        config.setMinimumIdle(5);
+        config.setIdleTimeout(300000);
+
+        dataSource = new HikariDataSource(config);
     }
 
-    public static int executeUpdate(String query, Object... params) {
-        try (Connection connection = BasicConnectionPool.getConnection();
-             PreparedStatement statement = connection.prepareStatement(query)) {
-
-            setParameters(statement, params);
-            return statement.executeUpdate();
-
-        } catch (SQLException e) {
-            System.err.println("Update execution failed: " + e.getMessage());
-            return 0;
-        }
-    }
-
-    private static void setParameters(PreparedStatement statement, Object... params) throws SQLException {
-        for (int i = 0; i < params.length; i++) {
-            statement.setObject(i + 1, params[i]);
-        }
+    public static Connection getConnection() throws SQLException {
+        return dataSource.getConnection();
     }
 }
