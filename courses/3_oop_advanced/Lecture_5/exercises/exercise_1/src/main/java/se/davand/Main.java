@@ -1,37 +1,54 @@
 package se.davand;
 
-import se.davand.model.Customer;
-import se.davand.repository.CustomerRepository;
 import se.davand.database.ConnectionManager;
+import se.davand.database.TransactionManager;
+import se.davand.repository.ProductRepository;
+import se.davand.model.Product;
+
+import java.math.BigDecimal;
+import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        ConnectionManager connectionManager = new ConnectionManager();
-        CustomerRepository customerRepository = new CustomerRepository(connectionManager);
+        // Create instances of ProductRepository and TransactionManager
+        ProductRepository productRepository = new ProductRepository(new ConnectionManager());
+        TransactionManager transactionManager = new TransactionManager(ConnectionManager.getDataSource());
 
-        // Create and save a new customer
-        Customer newCustomer = new Customer(null, "John Doe", "johndoe@example.com");
-        boolean saved = customerRepository.save(newCustomer);
-        System.out.println("Customer saved: " + saved + ", ID: " + newCustomer.getId());
+        // Test the findByPriceRange method
+        System.out.println("Testing findByPriceRange...");
+        BigDecimal minPrice = new BigDecimal("10.00");
+        BigDecimal maxPrice = new BigDecimal("50.00");
+        List<Product> productsInRange = productRepository.findByPriceRange(minPrice, maxPrice);
+        for (Product product : productsInRange) {
+            System.out.println(product);
+        }
 
-        // Retrieve all customers
-        customerRepository.findAll().forEach(System.out::println);
+        // Test the findByNameLike method
+        System.out.println("Testing findByNameLike...");
+        String namePattern = "%example%";  // Using SQL wildcard pattern, % means "any characters"
+        List<Product> productsByName = productRepository.findByNameLike(namePattern);
+        for (Product product : productsByName) {
+            System.out.println(product);
+        }
 
-        // Retrieve a customer by ID
-        customerRepository.findById(newCustomer.getId()).ifPresent(System.out::println);
+        // Test the updateStock method using TransactionManager
+        System.out.println("Testing updateStock...");
+        Long productId = 1L;  // Assumes a product with ID 1 exists in the database
+        int quantityChange = 20;
 
-        // Update the customer's name
-        newCustomer.setName("John Updated");
-        customerRepository.save(newCustomer);
+        try {
+            boolean stockUpdated = transactionManager.executeInTransaction(connection -> {
+                return productRepository.updateStock(connection, productId, quantityChange);
+            });
 
-        // Verify the update
-        customerRepository.findById(newCustomer.getId()).ifPresent(System.out::println);
-
-        // Delete the customer
-        boolean deleted = customerRepository.delete(newCustomer.getId());
-        System.out.println("Customer deleted: " + deleted);
-
-        // Verify deletion by retrieving all customers
-        customerRepository.findAll().forEach(System.out::println);
+            if (stockUpdated) {
+                System.out.println("Stock successfully updated for product ID: " + productId);
+            } else {
+                System.out.println("Failed to update stock for product ID: " + productId);
+            }
+        } catch (Exception e) {
+            System.out.println("Error during transaction: " + e.getMessage());
+            e.printStackTrace();
+        }
     }
 }

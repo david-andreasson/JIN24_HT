@@ -25,4 +25,7 @@ public class ConnectionManager {
     public static Connection getConnection() throws SQLException {
         return dataSource.getConnection();
     }
+    public static HikariDataSource getDataSource() {
+        return dataSource;
+    }
 }
