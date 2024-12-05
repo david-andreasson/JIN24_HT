@@ -2,13 +2,24 @@ package se.davand;
 
 public class StringUtils {
 
-    public static String IsStringAPalindrome(String string) {
+    public static boolean isStringAPalindrome(String string) {
+        if (string == null) {
+            System.out.println("The string is null.");
+            throw new NullPointerException("The string is null.");
+        }
+        if (string.length() == 0) {
+            throw new IllegalArgumentException("The string is empty.");
+        }
         StringBuilder stringBuilder = new StringBuilder(string);
         String reverseString = stringBuilder.reverse().toString();
+
         if (string.equals(reverseString)) {
-            return "Yes, the string is a palindrome.";
+            System.out.println("Yes, the string is a palindrome.");
+            return true;
         } else {
-            return "No, the string is not a palindrome.";
+            System.out.println("No, the string is not a palindrome.");
+            return false;
         }
     }
 }
+
