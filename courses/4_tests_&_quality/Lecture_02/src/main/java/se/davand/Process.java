@@ -1,5 +1,5 @@
 package se.davand;
-
+/*
 public class Process {
     public void processOrder(Order order) {
         if (!validateOrder(order)) {
@@ -29,4 +29,4 @@ public class Process {
         notifyCustomer(order);
         updateInventory(order);
     }
-}
+}*/
