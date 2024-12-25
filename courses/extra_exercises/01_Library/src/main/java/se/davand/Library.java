@@ -12,10 +12,23 @@ public class Library {
     }
 
     public void listAllBooks() {
-
+        for (Book book : books) {
+            System.out.println(book.getTitle() + " by " + book.getAuthor());
+        }
     }
 
-    public void findBookByTitle() {
+    public void findBookByTitle(String title) {
+        boolean foundBook = false;
+        for (Book book : books) {
+            if (book.getTitle().equalsIgnoreCase(title)) {
+                System.out.println("Found: " + book.getTitle() + " by " + book.getAuthor());
+                foundBook = true;
+                break;
+            }
+        }
+        if (!foundBook) {
+            System.out.println("Could not find book in library");
+        }
 
     }
 }
