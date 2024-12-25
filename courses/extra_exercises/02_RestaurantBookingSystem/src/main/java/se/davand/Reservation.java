@@ -12,6 +12,10 @@ public class Reservation {
         this.date = date;
     }
 
+    public Reservation() {
+
+    }
+
     public String getName() {
         return Name;
     }

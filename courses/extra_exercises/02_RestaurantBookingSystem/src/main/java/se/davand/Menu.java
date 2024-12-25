@@ -4,7 +4,12 @@ import java.util.Scanner;
 
 public class Menu {
 
-    void showMenu() {
+    private Reservation reservation;
+    public Menu(Reservation reservation){
+        this.reservation = reservation;
+    }
+
+    public void showMenu() {
         System.out.println("1. Add reservation");
         System.out.println("2. Remove reservation");
         System.out.println("3. List all reservations");
