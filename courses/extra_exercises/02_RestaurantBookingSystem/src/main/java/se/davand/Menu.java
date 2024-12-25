@@ -4,9 +4,9 @@ import java.util.Scanner;
 
 public class Menu {
 
-    private Reservation reservation;
-    public Menu(Reservation reservation){
-        this.reservation = reservation;
+    private Restaurant restaurant;
+    public Menu(Restaurant restaurant){
+        this.restaurant = restaurant;
     }
 
     public void showMenu() {
