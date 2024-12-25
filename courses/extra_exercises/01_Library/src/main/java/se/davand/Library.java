@@ -11,6 +11,21 @@ public class Library {
         books.add(newBook);
     }
 
+    public void removeBookByTitle(String bookToDelete) {
+        boolean foundBook = false;
+        for (Book book : books) {
+            if (book.getTitle().equalsIgnoreCase(bookToDelete)) {
+                System.out.println("Removing: " + book.getTitle() + " by " + book.getAuthor());
+                books.remove(book);
+                foundBook = true;
+                break;
+            }
+        }
+        if (!foundBook) {
+            System.out.println("Could not find book in library");
+        }
+    }
+
     public void listAllBooks() {
         for (Book book : books) {
             System.out.println(book.getTitle() + " by " + book.getAuthor());

@@ -5,7 +5,7 @@ public class Main {
         //System.out.println("Hello, World!");
 
         Library library = new Library();
-        Menu menu = new Menu();
+        Menu menu = new Menu(library);
 
         library.addBook("The Code Breaker", "Walter J. Robbins", "1234567890");
         library.addBook("Shadow of the Compiler", "Elena Bright", "0987654321");
@@ -23,7 +23,7 @@ public class Main {
         //library.findBookByTitle("loops and legends");
         //library.findBookByTitle("Jaws 2");
 
-        menu.showMenu();
+        menu.showMenu();;
         menu.inputHandler();
     }
 }

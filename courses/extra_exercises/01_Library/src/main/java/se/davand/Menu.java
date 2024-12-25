@@ -4,6 +4,11 @@ import java.util.Scanner;
 
 public class Menu {
 
+    private Library library;
+    public Menu(Library library){
+        this.library = library;
+    }
+
     public void showMenu() {
         System.out.println("Library menu:");
         System.out.println("1. Add book");
@@ -19,8 +24,6 @@ public class Menu {
     public void inputHandler() {
 
         Scanner scanner = new Scanner(System.in);
-        Library library = new Library();
-
 
         int usersChoice;
         do {
@@ -29,17 +32,15 @@ public class Menu {
 
             switch (usersChoice) {
                 case 1:
-                    //method to gets users input to put into addBook
                     addBookByUserInput(scanner, library);
                     break;
                 case 2:
-                    //method to get users input to put into removeBook
+                    removeBookByUserInput(scanner);
                     break;
                 case 3:
                     library.listAllBooks();
                     break;
                 case 4:
-                    //method to get users input to put into findBookByTitle
                     userSearchBook(scanner, library);
                     break;
                 case 0:
@@ -48,8 +49,18 @@ public class Menu {
                 default:
                     System.out.println("Invalid choice. Please try again.");
             }
+            if (usersChoice !=0){
+                showMenu();
+            }
+
         } while (usersChoice != 0);
 
+    }
+
+    private void removeBookByUserInput(Scanner scanner) {
+        System.out.println("Title of the book you want to remove: ");
+        String bookToDelete = scanner.nextLine();
+        library.removeBookByTitle(bookToDelete);
     }
 
     private static void userSearchBook(Scanner scanner, Library library) {
@@ -65,5 +76,6 @@ public class Menu {
         String usersAuthorName = scanner.nextLine();
         System.out.println("Enter the books isbn:");
         String usersIsbn = scanner.nextLine();
+        library.addBook(usersBookTitle, usersAuthorName, usersIsbn);
     }
 }
