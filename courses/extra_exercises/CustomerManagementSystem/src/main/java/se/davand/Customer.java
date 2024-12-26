@@ -48,5 +48,4 @@ public class Customer {
     public String toString() {
         return " ID: " + id + ", Name " + name + ", Phone number: " + phoneNumber + ", Email: " + email;
     }
-
 }

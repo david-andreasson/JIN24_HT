@@ -9,9 +9,9 @@ public class CustomerManager {
     public void addCustomer(String name, String phoneNumber, String email) {
         Customer newCustomer = new Customer(name, phoneNumber, email);
         customers.add(newCustomer);
+        System.out.println("Successfully added: " + newCustomer);
     }
 
-    //Remove customer
     public void removeCustomer(String customerToDelete) {
         boolean foundCustomer = false;
         for (Customer customer : customers) {
@@ -26,19 +26,17 @@ public class CustomerManager {
         }
     }
 
-    //List all customers
     public void listCustomers() {
         for (Customer customer : customers) {
             System.out.println(customer);
         }
     }
 
-    //Search for customer
     public void findCustomer(String customerToFind) {
         boolean foundCustomer = false;
         for (Customer customer : customers) {
             if (customer.getName().equalsIgnoreCase(customerToFind)) {
-                System.out.println("Found " + customer.getName());
+                System.out.println("Found " + customer);
                 foundCustomer = true;
             }
         }
