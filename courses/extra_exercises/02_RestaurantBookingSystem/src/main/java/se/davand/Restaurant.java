@@ -1,6 +1,5 @@
 package se.davand;
 
-import java.awt.print.Book;
 import java.util.ArrayList;
 
 public class Restaurant {
@@ -20,8 +19,8 @@ public class Restaurant {
         boolean foundReservation = false;
         for (Reservation reservation : reservations) {
             if (reservation.getName().equalsIgnoreCase(reservationToDelete)) {
-                System.out.println("Removing: " + reservation.getName()+"-reservation");
-                reservation.remove(reservation);
+                System.out.println("Removing: " + reservation.getName() + "-reservation");
+                reservations.remove(reservation);
                 foundReservation = true;
                 break;
             }
@@ -39,15 +38,18 @@ public class Restaurant {
     }
 
     //Metod för att söka efter en bokning baserat på namn
-    public void searchForReservation() {
+    public void searchForReservation(String nameToSearchFor) {
+        boolean foundReservation = false;
         for (Reservation reservation : reservations) {
-        if (reservations.contains(nameToSearchFor)){
-            System.out.println(reservation);
+            if (reservation.getName().equalsIgnoreCase(nameToSearchFor)) {
+                System.out.println("Found: " + reservation.getName() + "-reservation");
+                foundReservation = true;
+                break;
+            }
         }
-        else {
-            System.out.println("Could not find reservation");
-        }
-
+        if (!foundReservation) {
+            System.out.println("Could not find reservation in booking system");
         }
     }
 }
+
