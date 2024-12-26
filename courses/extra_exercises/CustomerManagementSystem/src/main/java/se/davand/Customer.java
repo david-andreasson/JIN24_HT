@@ -2,14 +2,22 @@ package se.davand;
 
 public class Customer {
 
-    String name;
-    String phonenumber;
-    String email;
+    private static int idCounter = 1;
+
+    private int id;
+    private String name;
+    private String phoneNumber;
+    private String email;
 
     public Customer(String name, String phonenumber, String email) {
+        this.id = idCounter++;
         this.name = name;
-        this.phonenumber = phonenumber;
+        this.phoneNumber = phoneNumber;
         this.email = email;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getName() {
@@ -20,12 +28,12 @@ public class Customer {
         this.name = name;
     }
 
-    public String getPhonenumber() {
-        return phonenumber;
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
-    public void setPhonenumber(String phonenumber) {
-        this.phonenumber = phonenumber;
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     public String getEmail() {
@@ -35,4 +43,10 @@ public class Customer {
     public void setEmail(String email) {
         this.email = email;
     }
+
+    @Override
+    public String toString() {
+        return "ID: " + id + ", Name" + name + ", Phone number: " + phoneNumber + ", Email: " + email;
+    }
+
 }
