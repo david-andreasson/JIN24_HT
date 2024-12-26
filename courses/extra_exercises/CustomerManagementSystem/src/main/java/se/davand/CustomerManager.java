@@ -28,12 +28,22 @@ public class CustomerManager {
 
     //List all customers
     public void listCustomers() {
-
+        for (Customer customer : customers) {
+            System.out.println(customer);
+        }
     }
 
     //Search for customer
-    public void findCustomer() {
-
-
+    public void findCustomer(String customerToFind) {
+        boolean foundCustomer = false;
+        for (Customer customer : customers) {
+            if (customer.getName().equalsIgnoreCase(customerToFind)) {
+                System.out.println("Found " + customer.getName());
+                foundCustomer = true;
+            }
+        }
+        if (!foundCustomer) {
+            System.out.println("Can not find customer: " + customerToFind + " in customer list.");
+        }
     }
 }
