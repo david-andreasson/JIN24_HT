@@ -12,8 +12,18 @@ public class CustomerManager {
     }
 
     //Remove customer
-    public void removeCustomer() {
-
+    public void removeCustomer(String customerToDelete) {
+        boolean foundCustomer = false;
+        for (Customer customer : customers) {
+            if (customer.getName().equalsIgnoreCase(customerToDelete)) {
+                System.out.println("Removing " + customer.getName());
+                customers.remove(customer);
+                foundCustomer = true;
+            }
+        }
+        if (!foundCustomer) {
+            System.out.println("Can not find customer: " + customerToDelete + "in customer list.");
+        }
     }
 
     //List all customers
