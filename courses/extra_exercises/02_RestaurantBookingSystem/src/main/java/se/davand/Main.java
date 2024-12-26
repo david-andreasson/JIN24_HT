@@ -2,11 +2,10 @@ package se.davand;
 
 public class Main {
     public static void main(String[] args) {
-        //System.out.println("Hello, World!");
 
-Restaurant restaurant = new Restaurant();
-Menu menu = new Menu(restaurant);
+        Restaurant restaurant = new Restaurant();
+        Menu menu = new Menu(restaurant);
 
-        menu.showMenu();
+        menu.inputHandler();
     }
 }

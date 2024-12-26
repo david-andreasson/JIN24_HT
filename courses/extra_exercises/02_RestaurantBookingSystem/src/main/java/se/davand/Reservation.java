@@ -2,12 +2,12 @@ package se.davand;
 
 public class Reservation {
 
-    private String Name;
+    private String name;
     private int numberOfPeople;
     private String date;
 
     public Reservation(String name, int numberOfPeople, String date) {
-        Name = name;
+        this.name = name;
         this.numberOfPeople = numberOfPeople;
         this.date = date;
     }
@@ -17,11 +17,11 @@ public class Reservation {
     }
 
     public String getName() {
-        return Name;
+        return name;
     }
 
     public void setName(String name) {
-        Name = name;
+        this.name = name;
     }
 
     public int getNumberOfPeople() {
@@ -38,5 +38,10 @@ public class Reservation {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    @Override
+    public String toString() {
+        return "Name: " + name + ", Guests: " + numberOfPeople + ", Date: " + date;
     }
 }

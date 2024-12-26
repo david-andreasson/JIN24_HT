@@ -12,6 +12,7 @@ public class Restaurant {
     public void addReservation(String name, int numberOfPeople, String date) {
         Reservation newReservation = new Reservation(name, numberOfPeople, date);
         reservations.add(newReservation);
+        System.out.println("Successfully added the reservation: " + newReservation);
     }
 
     //Metod för att ta bort bokning
@@ -42,9 +43,8 @@ public class Restaurant {
         boolean foundReservation = false;
         for (Reservation reservation : reservations) {
             if (reservation.getName().equalsIgnoreCase(nameToSearchFor)) {
-                System.out.println("Found: " + reservation.getName() + "-reservation");
+                System.out.println("Found: " + reservation);
                 foundReservation = true;
-                break;
             }
         }
         if (!foundReservation) {
