@@ -9,7 +9,7 @@ public class Customer {
     private String phoneNumber;
     private String email;
 
-    public Customer(String name, String phonenumber, String email) {
+    public Customer(String name, String phoneNumber, String email) {
         this.id = idCounter++;
         this.name = name;
         this.phoneNumber = phoneNumber;
