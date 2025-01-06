@@ -1,6 +1,7 @@
 package se.davand;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class CustomerManager {
 
@@ -14,15 +15,17 @@ public class CustomerManager {
 
     public void removeCustomer(String customerToDelete) {
         boolean foundCustomer = false;
-        for (Customer customer : customers) {
+        Iterator<Customer> iterator = customers.iterator();
+        while (iterator.hasNext()) {
+            Customer customer = iterator.next();
             if (customer.getName().equalsIgnoreCase(customerToDelete)) {
                 System.out.println("Removing " + customer.getName());
-                customers.remove(customer);
+                iterator.remove();
                 foundCustomer = true;
             }
-        }
-        if (!foundCustomer) {
-            System.out.println("Can not find customer: " + customerToDelete + "in customer list.");
+            if (!foundCustomer){
+                System.out.println("Customer " + customerToDelete + " was not found in customerlist");
+            }
         }
     }
 
