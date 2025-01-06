@@ -1,6 +1,7 @@
 package se.davand;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class Restaurant {
 
@@ -18,16 +19,17 @@ public class Restaurant {
     //Metod för att ta bort bokning
     public void removeReservation(String reservationToDelete) {
         boolean foundReservation = false;
-        for (Reservation reservation : reservations) {
+        Iterator<Reservation> iterator = reservations.iterator();
+        while (iterator.hasNext()) {
+            Reservation reservation = iterator.next();
             if (reservation.getName().equalsIgnoreCase(reservationToDelete)) {
-                System.out.println("Removing: " + reservation.getName() + "-reservation");
-                reservations.remove(reservation);
+                System.out.println("Removing " + reservation.getName());
+                iterator.remove();
                 foundReservation = true;
-                break;
             }
-        }
-        if (!foundReservation) {
-            System.out.println("Could not find reservation in booking system");
+            if (!foundReservation) {
+                System.out.println("Reservation " + reservationToDelete + " was not found in reservation-list");
+            }
         }
     }
 
